@@ -1,10 +1,13 @@
 package Pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import Utilities.BaseDriver;
 import org.openqa.selenium.WebDriver;
+
+import java.util.List;
 
 /**
  * Page Object Model class for login dialogue elements.
@@ -16,7 +19,7 @@ public class DialogueContent extends Parent {
         PageFactory.initElements(BaseDriver.getDriver(), this);
     }
 
-    @FindBy(id = "username")
+    @FindBy(name = "username")
     private WebElement usernameInput;
 
     @FindBy(id = "password")
@@ -25,42 +28,101 @@ public class DialogueContent extends Parent {
     @FindBy(id = "loginButton")
     private WebElement loginButton;
 
-    @FindBy(id = "errorMessage")
+    @FindBy(xpath = "//h6[text()='Dashboard']")
+    public WebElement dashboardText;
+
+    @FindBy(xpath = "//p[text()='Invalid credentials']")
     private WebElement errorMessage;
 
     @FindBy(id = "successMessage")
     private WebElement successMessage;
 
-    /**
-     * Enters username into the username input field
-     * @param username The username to enter
-     */
-    public void enterUsername(String username) {
-        waitUntilVisible(usernameInput);
-        scrollToElement(usernameInput);
-        usernameInput.clear();
-        usernameInput.sendKeys(username);
+    WebElement myElement;
+    public void findAndSend(String elementName,String value)
+    {
+        switch (elementName) {
+            case "username":
+                myElement = usernameInput;
+                break;
+
+            case "password":
+                myElement = passwordInput;
+                break;
+
+        }
+
+        sendKeysFunction(myElement, value);
     }
 
-    /**
-     * Enters password into the password input field
-     * @param password The password to enter
-     */
-    public void enterPassword(String password) {
-        waitUntilVisible(passwordInput);
-        scrollToElement(passwordInput);
-        passwordInput.clear();
-        passwordInput.sendKeys(password);
+    public void findAndClick(String elementName)
+    {
+        switch (elementName) {
+            case "loginButton":
+                myElement = loginButton;
+                break;
+        }
+        clickFunction(myElement);
     }
 
-    /**
-     * Clicks the login button
-     */
-    public void clickLoginButton() {
-        waitUntilClickable(loginButton);
-        scrollToElement(loginButton);
-        loginButton.click();
+    public void findAndContainsText(String elementName, String msg)
+    {
+        switch (elementName) {
+            case "successMessage":
+                myElement = successMessage;
+                break;
+
+            case "errorMessage":
+                myElement = errorMessage;
+                break;
+        }
+
+        verifyContainsText(myElement, msg);
     }
+
+
+    public void findAndDelete(String deleteString)
+    {
+        // tıklatma
+//        scrollToUpElement(rightScroll);
+        findAndSend("searchInput", deleteString);
+        findAndClick("searchButton");
+
+        // çöp kovaları 5 den az olana kadar bekle: search sonucu gözükene kadar bekle
+        waitnumberOfElementsToBeLessThan(By.xpath("//ms-delete-button//button"), 5);
+
+        findAndClick("deleteButton");
+        findAndClick("deleteDialogBtn");
+    }
+
+    List<WebElement> myList;
+    public void ChooseListElement(String listName, String option)
+    {
+        switch (listName) {
+            case "userTypeAllOptions":
+//                myList = userTypeAllOptions;
+                break;
+        }
+
+//        userType.click();
+        listSelectOption(myList, option);
+    }
+
+    public void findAndEdit(String oldWord, String newWord)
+    {
+        // tıklatma
+//        scrollToUpElement(rightScroll);
+        findAndSend("searchInput", oldWord);
+        findAndClick("searchButton");
+
+        // çöp kovaları 5 den az olana kadar bekle: search sonucu gözükene kadar bekle
+        waitnumberOfElementsToBeLessThan(By.xpath("//ms-delete-button//button"), 5);
+
+        findAndClick("editBtn");
+
+        findAndSend("nameInput", newWord);
+        findAndClick("saveButton");
+    }
+
 
     /**
      * Verifies if error message is displayed
