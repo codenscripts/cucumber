@@ -18,9 +18,9 @@
         <slf4j.version>2.0.12</slf4j.version>
         <webdrivermanager.version>5.6.3</webdrivermanager.version>
         <extentreports.version>5.1.1</extentreports.version>
-        <cucumber-extentreports.version>5.0.4</cucumber-extentreports.version>
         <poi.version>5.2.5</poi.version>
         <mysql.version>8.0.33</mysql.version>
+        <maven.surefire.version>3.2.5</maven.surefire.version>
     </properties>
 
     <dependencies>
@@ -80,9 +80,9 @@
             <version>${extentreports.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.vimalselvam</groupId>
-            <artifactId>cucumber-extentsreport</artifactId>
-            <version>${cucumber-extentreports.version}</version>
+            <groupId>tech.grasshopper</groupId>
+            <artifactId>extentreports-cucumber7-adapter</artifactId>
+            <version>1.14.0</version>
         </dependency>
 
         <!-- Apache POI -->
@@ -112,9 +112,25 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
                 <configuration>
-                    <source>11</source>
-                    <target>11</target>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.version}</version>
+                <configuration>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>testng.xml</suiteXmlFile>
+                    </suiteXmlFiles>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.3.2</version>
             </plugin>
         </plugins>
     </build>
