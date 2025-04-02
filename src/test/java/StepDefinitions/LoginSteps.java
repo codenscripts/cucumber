@@ -25,7 +25,7 @@ public class LoginSteps {
     @When("User enters username and password from Excel")
     public void userEntersUsernameAndPasswordFromExcel() {
         // Read valid credentials from Excel
-        loginData = ExcelUtility.getListData("src/test/resources/testData.xlsx", "LoginData", 2);
+        loginData = ExcelUtility.getListData("src/test/resources/testData.xls", "LoginData", 2);
         dialogueContent.findAndSend("usernameInput",loginData.get(0).get(0));
         dialogueContent.findAndSend("passwordInput",loginData.get(0).get(1));
     }
@@ -34,8 +34,9 @@ public class LoginSteps {
     public void userEntersInvalidUsernameAndPasswordFromExcel() {
         // Read invalid credentials from Excel
         loginData = ExcelUtility.getListData("src/test/resources/testData.xls", "LoginData", 2);
-        dialogueContent.findAndSend("usernameInput", loginData.get(1).get(0));
-        dialogueContent.findAndSend("usernameInput", loginData.get(1).get(1));
+//        dialogueContent.findAndSend("usernameInput", loginData.get(1).get(0));
+        dialogueContent.findAndSend("usernameInput", "Admin");
+        dialogueContent.findAndSend("usernameInput", "admin12");
     }
 
     @When("User clicks on login button")
