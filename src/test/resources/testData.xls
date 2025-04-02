@@ -1,4 +1,4 @@
 LoginData
 Username	Password
-validUser	validPass
+Admin	admin123
 invalidUser	invalidPass 
