@@ -1,0 +1,4 @@
+LoginData
+Username	Password
+validUser	validPass
+invalidUser	invalidPass 
