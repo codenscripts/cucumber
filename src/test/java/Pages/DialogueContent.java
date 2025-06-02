@@ -82,12 +82,9 @@ public class DialogueContent extends Parent {
 
     public void findAndDelete(String deleteString)
     {
-        // tıklatma
-//        scrollToUpElement(rightScroll);
         findAndSend("searchInput", deleteString);
         findAndClick("searchButton");
-
-        // çöp kovaları 5 den az olana kadar bekle: search sonucu gözükene kadar bekle
+       
         waitnumberOfElementsToBeLessThan(By.xpath("//ms-delete-button//button"), 5);
 
         findAndClick("deleteButton");
@@ -99,22 +96,17 @@ public class DialogueContent extends Parent {
     {
         switch (listName) {
             case "userTypeAllOptions":
-//                myList = userTypeAllOptions;
                 break;
         }
 
-//        userType.click();
         listSelectOption(myList, option);
     }
 
     public void findAndEdit(String oldWord, String newWord)
     {
-        // tıklatma
-//        scrollToUpElement(rightScroll);
         findAndSend("searchInput", oldWord);
         findAndClick("searchButton");
-
-        // çöp kovaları 5 den az olana kadar bekle: search sonucu gözükene kadar bekle
+        
         waitnumberOfElementsToBeLessThan(By.xpath("//ms-delete-button//button"), 5);
 
         findAndClick("editBtn");
